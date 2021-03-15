@@ -5,13 +5,10 @@ import Product from "./Products/Product/Product"
 import useStyles from './Products/styles'
 
 
-const products = [
-    {id:1,name:"ametist",description:"plav",price:"$9",image:"https://via.placeholder.com/400x5500.png"},
-    {id:2,name:"malavit",description:"zelen",price:"$7",image:"https://via.placeholder.com/400x350.png"}
-]
 
 
-const Products = ()=>{
+
+const Products = ({products})=>{
 const classes = useStyles()
 
  return ( 
