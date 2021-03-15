@@ -7,7 +7,7 @@ import useStyles from './styles';
 
 
 
-const Product = ({product}) => { 
+const Product = ({product,addToCart}) => { 
 
     
 
@@ -28,7 +28,7 @@ const Product = ({product}) => {
             <Typography dangerouslySetInnerHTML={{__html:product.description}} variant="body" color="textSecondary" style = {{textAlign:'justify'}} />
         </CardContent>
         <CardActions disableSpacing className={classes.cardActions}>
-            <IconButton aria-label="Add To Cart">
+            <IconButton aria-label="Add To Cart" onClick={()=>addToCart(product.id,1)} >
                 <AddShoppingCart />
             </IconButton>
         </CardActions>

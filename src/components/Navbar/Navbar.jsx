@@ -6,7 +6,7 @@ import useStyles from './style'
 
 
 
-const Navbar = () => {
+const Navbar = ({cartItemsTotal}) => {
 const classes = useStyles()
 
     return (
@@ -20,7 +20,7 @@ const classes = useStyles()
                    <div className={classes.grow}/>
                    <div className={classes.button}>
                        <IconButton color="inherit">
-                            <Badge badgeContent={2} color="secondary">
+                            <Badge badgeContent={cartItemsTotal} color="secondary">
                                 <ShoppingCart />
                             </Badge>
                        </IconButton>
