@@ -3,6 +3,7 @@ import {AppBar,Toolbar,IconButton,Badge,MenuItem,Menu,Typography} from '@materia
 import {ShoppingCart} from '@material-ui/icons';
 
 import useStyles from './style'
+import logo from '../../assets/diamond.png'
 
 
 
@@ -14,7 +15,7 @@ const classes = useStyles()
             <AppBar position="fixed" color="inherit" className={classes.appBar} >
                <Toolbar>
                    <Typography  variant="h6" className={classes.title} color="inherit">
-                       <img src="" alt=""/>
+                       <img src={logo} alt="" className={classes.image}/>
                        E-Shop
                    </Typography>
                    <div className={classes.grow}/>
