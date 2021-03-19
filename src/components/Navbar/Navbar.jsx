@@ -18,7 +18,7 @@ const classes = useStyles()
                <Toolbar>
                    <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
                        <img src={logo} alt="" className={classes.image}/>
-                       E-Shop
+                       GemStore
                    </Typography>
                    <div className={classes.grow}/>
                   {location.pathname==="/" && ( <div className={classes.button}>
@@ -28,7 +28,7 @@ const classes = useStyles()
                             </Badge>
                        </IconButton>
                    </div>)} 
-                  
+                 
                </Toolbar>
             </AppBar>
         </>
