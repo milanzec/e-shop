@@ -33,7 +33,7 @@ const Checkout = () => {
 
 const classes = useStyles()
 
-const [activeStep, setActiveStep] = useState(2)
+const [activeStep, setActiveStep] = useState(1)
 
 
 return (
@@ -59,7 +59,7 @@ return (
         </>
             ) : (
               <React.Fragment>
-                {getStepContent(2)}
+                {getStepContent(0)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={()=>{console.log("button 1")}} className={classes.button}>
