@@ -17,13 +17,16 @@ const [ shippingOptions,setShippingOptions]= useState([])
 const [ shippingOption,setShippingOption]= useState('')
 
  const methods = useForm()
+  
+ const countries = Object.entries(shippingCountries).map(([code,name])=>({id:code,label:name}))
 
   
 
  const fetchShippingCountries = async (checkoutTokenId) => {
      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
-     console.log(countries)
      setShippingCountries(countries)
+     setShippingCountry(Object.values(countries)[4])
+    
    
     }
 
@@ -32,6 +35,7 @@ const [ shippingOption,setShippingOption]= useState('')
 
     }, [])
 
+    console.log(shippingCountries)
     return (
      <>
      <Typography variant="h6" gutterBottom>Shipping Adress</Typography>
@@ -46,10 +50,13 @@ const [ shippingOption,setShippingOption]= useState('')
                               <FormInput required name='ZIP' label='ZIP / Postal Code'/>
                                 <Grid xs={12} sm={6}>
                                 <InputLabel>Shipping Country</InputLabel>
-                                <Select value='drzava' fullwidth onChange=''>
-                                        <MenuItem key={1} value='nekivalue'>
-                                            Select Me
-                                        </MenuItem> 
+                                <Select value={shippingCountry} fullwidth onChange={(e)=>setShippingCountry(e.target.value)}>
+                                    {countries.map((country)=>(
+                                    <MenuItem key={country.id} value={country.label}>
+                                          {country.label}
+                                        </MenuItem> )
+                                    )}
+                                       
                                 </Select >
                                 </Grid>  
                                      <Grid xs={12} sm={6}>
