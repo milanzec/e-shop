@@ -17,25 +17,33 @@ const [ shippingOptions,setShippingOptions]= useState([])
 const [ shippingOption,setShippingOption]= useState('')
 
  const methods = useForm()
+
+
   
  const countries = Object.entries(shippingCountries).map(([code,name])=>({id:code,label:name}))
-
+ const regions = Object.entries(shippingRegions).map(([code,name])=>({id:code,label:name}))
   
 
- const fetchShippingCountries = async (checkoutTokenId) => {
+   const fetchShippingCountries = async (checkoutTokenId) => {
      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
      setShippingCountries(countries)
-     setShippingCountry(Object.values(countries)[4])
-    
-   
+     setShippingCountry(Object.keys(countries)[0])
+    }
+
+   const fetchShippingRegions = async(CountryId) =>{
+      const {subdivisions} =  await commerce.services.localeListSubdivisions(CountryId)
+        setShippingRegions(subdivisions)
+        setShippingRegion(Object.keys(subdivisions)[0])
     }
 
     useEffect(() => {
     fetchShippingCountries(checkoutToken.id)
-
     }, [])
 
-    console.log(shippingCountries)
+   useEffect(() => {
+   if  (shippingCountry)  fetchShippingRegions(shippingCountry)
+   }, [shippingCountry])
+   
     return (
      <>
      <Typography variant="h6" gutterBottom>Shipping Adress</Typography>
@@ -48,28 +56,32 @@ const [ shippingOption,setShippingOption]= useState('')
                           <FormInput required name='email' label='Email'/>
                             <FormInput required name='city' label='City'/>
                               <FormInput required name='ZIP' label='ZIP / Postal Code'/>
-                                <Grid xs={12} sm={6}>
+                             
+                            <Grid  item xs={12} sm={6}>
+                                   
                                 <InputLabel>Shipping Country</InputLabel>
-                                <Select value={shippingCountry} fullwidth onChange={(e)=>setShippingCountry(e.target.value)}>
+                                <Select value={shippingCountry} style={{display:'flex',padding:'12px'}} fullwidth onChange={(e)=>setShippingCountry(e.target.value)}>
                                     {countries.map((country)=>(
-                                    <MenuItem key={country.id} value={country.label}>
-                                          {country.label}
+                                        <MenuItem   key={country.id} value={country.id}>
+                                           {country.label}
                                         </MenuItem> )
                                     )}
                                        
                                 </Select >
-                                </Grid>  
-                                     <Grid xs={12} sm={6}>
+                            </Grid>  
+                             <Grid item xs={12} sm={6} >
                                 <InputLabel>Shipping Region</InputLabel>
-                                <Select value='drzava' fullwidth onChange=''>
-                                        <MenuItem key={1} value='nekivalue'>
-                                            Select Me
+                                <Select value={shippingRegion} style={{display:'flex',padding:'12px'}} fullwidth onChange={(e)=>setShippingRegion(e.target.value)}>
+                                      {regions.map((region)=>(
+                                            <MenuItem key={region.id} value={region.id}>
+                                            {region.label}
                                         </MenuItem> 
+                                      ))}
                                 </Select >
                                 </Grid>  
-                                     <Grid xs={12} sm={6}>
+                                     <Grid item xs={12} sm={6}>
                                 <InputLabel>Shipping Options</InputLabel>
-                                <Select value='drzava' fullwidth onChange=''>
+                                <Select style={{display:'flex',padding:'12px'}} value='drzava' fullwidth onChange=''>
                                         <MenuItem key={1} value='nekivalue'>
                                             Select Me
                                         </MenuItem> 
