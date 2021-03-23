@@ -90,14 +90,14 @@ return (
                 { getStepContent(0)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={()=>{console.log("button 1")}} className={classes.button}>
+                    <Button onClick='' className={classes.button}>
                       Back
                     </Button>
                   )}
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={()=>{console.log("button 2")}}
+                    onClick=''
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
