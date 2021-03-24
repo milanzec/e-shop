@@ -1,22 +1,16 @@
 import React, { useState,useEffect } from 'react'
 import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography, Divider,Button} from '@material-ui/core'
+import {Link} from 'react-router-dom' 
 
 import { commerce } from '../../../lib/commerce'
 import useStyles from './styles'
 import PaymentForm from '../PaymentForm'
 import AddressForm from '../AddressForm'
+import { FiberPin } from '@material-ui/icons'
 
 
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
-
-
-
-
-
-
-
-
 
 
   const Confirmation = () => (
@@ -27,10 +21,10 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 
-
 const Checkout = ({cart}) => {
 const classes = useStyles()
 const [activeStep, setActiveStep] = useState(1)
+const [shippingData,setShippingData] = useState({})
 const[checkoutToken,setCheckoutToken] = useState(null)
 
 
@@ -45,16 +39,27 @@ useEffect(() => {
            
        }
    }
-
    generateToken()
 }, [cart])
+
+
+const nextStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep + 1)
+const backStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep - 1)
+
+
+const next = (data) => {
+   setShippingData(data)
+   nextStep()
+   console.log(shippingData)
+}
+
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return  checkoutToken && <AddressForm checkoutToken={checkoutToken}/>;
+      return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} />;
     case 1:
-      return <PaymentForm/>
+      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken}/>
     case 2:
       return "Review";
     default:
@@ -87,14 +92,15 @@ return (
         </>
             ) : (
               <React.Fragment>
-                { getStepContent(0)}
+                { getStepContent(1)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick='' className={classes.button}>
-                      Back
+                    <Button variant="outlined" component={Link} to="/cart" className={classes.button}>
+                      Back to cart
                     </Button>
                   )}
                   <Button
+                    type="submit"
                     variant="contained"
                     color="primary"
                     onClick=''
