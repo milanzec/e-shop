@@ -46,18 +46,18 @@ useEffect(() => {
 const nextStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep + 1)
 const backStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep - 1)
 
-
+{/*
 const next = (data) => {
    setShippingData(data)
    nextStep()
    console.log(shippingData)
 }
-
+*/}
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} />;
+      return  checkoutToken && <AddressForm checkoutToken={checkoutToken}  />;
     case 1:
       return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken}/>
     case 2:
@@ -92,18 +92,19 @@ return (
         </>
             ) : (
               <React.Fragment>
-                { getStepContent(1)}
+                { getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                  {console.log(activeStep)}
+                  {activeStep == 0 ? (
                     <Button variant="outlined" component={Link} to="/cart" className={classes.button}>
                       Back to cart
                     </Button>
-                  )}
+                  ):(<Button variant="outlined" onClick={backStep} className={classes.button}>Back</Button>)}
                   <Button
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick=''
+                    onClick={nextStep}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
