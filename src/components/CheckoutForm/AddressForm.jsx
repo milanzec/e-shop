@@ -43,7 +43,6 @@ const [ shippingOption,setShippingOption]= useState('')
         const responce = await commerce.checkout.getShippingOptions(checkoutTokenId,{country,region})
         setShippingOptions(responce)
         responce && setShippingOption(responce[0].id)
-        console.log(shippingOptions)
     }
 
     useEffect(() => {
@@ -98,12 +97,12 @@ const [ shippingOption,setShippingOption]= useState('')
                                      <Grid item xs={12} sm={6}>
                                 <InputLabel>Shipping Options</InputLabel>
                         <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
-                {shippingOptions.map((option) => ({ id: option.id, label: `${option.description} - (${option.price.formatted_with_symbol})` })).map((item) => (
-                  <MenuItem key={item.id} value={item.id}>
+                       {shippingOptions.map((option) => ({ id: option.id, label: `${option.description} - (${option.price.formatted_with_symbol})` })).map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
                     {item.label}
-                  </MenuItem>
-                ))}
-              </Select>
+                     </MenuItem>
+                  ))}
+                  </Select>
                                 </Grid>  
                  </Grid>
              </form>

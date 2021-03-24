@@ -6,6 +6,7 @@ import { commerce } from '../../../lib/commerce'
 import useStyles from './styles'
 import PaymentForm from '../PaymentForm'
 import AddressForm from '../AddressForm'
+import Review from '../Review'
 import { FiberPin } from '@material-ui/icons'
 
 
@@ -23,7 +24,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 const Checkout = ({cart}) => {
 const classes = useStyles()
-const [activeStep, setActiveStep] = useState(1)
+const [activeStep, setActiveStep] = useState(0)
 const [shippingData,setShippingData] = useState({})
 const[checkoutToken,setCheckoutToken] = useState(null)
 
@@ -46,22 +47,22 @@ useEffect(() => {
 const nextStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep + 1)
 const backStep = ()=>setActiveStep((prevActiveStep)=>prevActiveStep - 1)
 
-{/*
+
 const next = (data) => {
    setShippingData(data)
    nextStep()
    console.log(shippingData)
 }
-*/}
+
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return  checkoutToken && <AddressForm checkoutToken={checkoutToken}  />;
+      return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} />;
     case 1:
       return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken}/>
     case 2:
-      return "Review";
+      return <Review checkoutToken={checkoutToken} />;
     default:
       throw new Error('Unknown step');
   }
