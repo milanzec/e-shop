@@ -28,7 +28,6 @@ const [ shippingOption,setShippingOption]= useState('')
    const fetchShippingCountries = async (checkoutTokenId) => {
      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
      setShippingCountries(countries)
-     console.log(countries)
      setShippingCountry(Object.keys(countries)[0])
     }
 
@@ -53,6 +52,7 @@ const [ shippingOption,setShippingOption]= useState('')
    if  (shippingCountry)  fetchShippingRegions(shippingCountry)
    }, [shippingCountry])
 
+
    useEffect(() => {
     if(shippingRegion) fetchShippingOptions(checkoutToken.id,shippingCountry,shippingRegion)
    }, [shippingRegion])
@@ -63,7 +63,7 @@ const [ shippingOption,setShippingOption]= useState('')
      <>
      <Typography variant="h6" gutterBottom>Shipping Address</Typography>
          <FormProvider {...methods}>
-             <form onSubmit={methods.handleSubmit((data)=>next({...data,shippingCountry, shippingRegion, shippingOption}))}>
+             <form onSubmit={methods.handleSubmit((data)=>next( {...data,shippingCountry, shippingRegion, shippingOption}))}>
                  <Grid container spacing={3}>
                        <FormInput required name='firstName' label='First name'/>
                         <FormInput required name='lastName' label='Last name'/>
@@ -105,6 +105,11 @@ const [ shippingOption,setShippingOption]= useState('')
                   </Select>
                                 </Grid>  
                  </Grid>
+                 <br/>
+                  <div style={{ display: 'flex',alignItems:'flex-end' }}>
+           
+            <Button type="submit" variant="contained" color="primary">Next</Button>
+            </div>
              </form>
          </FormProvider>
      </>

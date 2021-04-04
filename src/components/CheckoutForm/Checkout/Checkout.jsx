@@ -14,6 +14,7 @@ import { FiberPin } from '@material-ui/icons'
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
+
   const Confirmation = () => (
       <div>  
          Confirmation
@@ -22,7 +23,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 
-const Checkout = ({cart}) => {
+const Checkout = ({cart,order,onCaptureCheckout,error}) => {
 const classes = useStyles()
 const [activeStep, setActiveStep] = useState(0)
 const [shippingData,setShippingData] = useState({})
@@ -33,7 +34,6 @@ useEffect(() => {
    const generateToken = async () =>{
        try {
            const token = await commerce.checkout.generateToken(cart.id,{type:'cart'})
-           console.log(token)
            setCheckoutToken(token)
              
         } catch (error) {
@@ -60,7 +60,7 @@ function getStepContent(step) {
     case 0:
       return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} />;
     case 1:
-      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken}/>
+      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep}/>
     case 2:
       return <Review checkoutToken={checkoutToken} />;
     default:
@@ -95,21 +95,20 @@ return (
               <React.Fragment>
                 { getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {console.log(activeStep)}
-                  {activeStep == 0 ? (
+                  {activeStep === 0 ? (
                     <Button variant="outlined" component={Link} to="/cart" className={classes.button}>
                       Back to cart
                     </Button>
                   ):(<Button variant="outlined" onClick={backStep} className={classes.button}>Back</Button>)}
-                  <Button
+               { /*  <Button
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={nextStep}
+                    
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+               </Button>*/}
                 </div>
               </React.Fragment>
             )}
