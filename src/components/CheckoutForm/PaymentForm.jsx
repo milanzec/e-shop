@@ -7,7 +7,7 @@ import {loadStripe} from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
-const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout, backStep, nextStep}) => {
+const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout,refreshCart, backStep, nextStep}) => {
    const handleSubmit = async (event,elements,stripe)=>{
         event.preventDefault()
 
@@ -38,7 +38,8 @@ const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout, backStep, n
                    }
                }
            }
-
+           
+           refreshCart()
            onCaptureCheckout(checkoutToken.id,orderData)
            nextStep()
 

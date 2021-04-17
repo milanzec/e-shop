@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography ,Button} from '@material-ui/core'
+import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography ,Divider, Button} from '@material-ui/core'
 import {Link} from 'react-router-dom' 
 
 import { commerce } from '../../../lib/commerce'
@@ -15,19 +15,31 @@ const steps = ['Shipping address','Review your order','Payment details',];
 
 
 
-  const Confirmation = () => (
-      <div>  
-         Confirmation
-      </div>
-)
 
 
 
-const Checkout = ({cart,order,onCaptureCheckout,error}) => {
+const Checkout = ({cart,order,onCaptureCheckout,error,refreshCart}) => {
 const classes = useStyles()
 const [activeStep, setActiveStep] = useState(0)
 const [shippingData,setShippingData] = useState({})
 const[checkoutToken,setCheckoutToken] = useState(null)
+
+
+
+  const Confirmation = () => (
+    <>
+       <div>
+         <Typography variant="h5">
+             Thank You for your order Name Lastname!
+         </Typography>
+         <Divider className={classes.divider} />
+         <Typography variant="subtitle">hvala na kupovini</Typography>
+       </div>
+       <br/>
+       <Button component={Link} to="/" variant="outlined" type="button">Back To Home</Button>
+    </>
+)
+
 
 
 useEffect(() => {
@@ -60,7 +72,7 @@ function getStepContent(step) {
     case 0:
       return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} backStep={backStep} />;
     case 2:
-      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} onCaptureCheckout={onCaptureCheckout}/>
+      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} onCaptureCheckout={onCaptureCheckout} refreshCart={refreshCart}/>
     case 1:
       return <Review checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} />;
     default:
