@@ -1,8 +1,8 @@
 import React from 'react'
-import {Typography,List,ListItem,ListItemText} from '@material-ui/core';
+import {Typography,List,ListItem,ListItemText,Button} from '@material-ui/core';
 
 
-const Review = ({checkoutToken}) => {
+const Review = ({checkoutToken, backStep,nextStep}) => {
     return (
      <>
      <Typography variant="h6" gutterBottom>Order summary</Typography>
@@ -20,6 +20,10 @@ const Review = ({checkoutToken}) => {
            </Typography>
        </ListItem>
     </List>
+      <div style={{display:'flex',justifyContent:'space-between'}} >
+                      <Button onClick={backStep} variant="outlined">Back</Button>
+                      <Button type="submit" variant="contained" color="primary" onClick={nextStep} >Next</Button>
+                  </div>
      </>
     )
 }

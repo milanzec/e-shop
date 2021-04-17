@@ -7,7 +7,7 @@ import {loadStripe} from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
-const PaymentForm = ({checkoutToken ,shippingData, backStep, nextStep}) => {
+const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout, backStep, nextStep}) => {
    const handleSubmit = async (event,elements,stripe)=>{
         event.preventDefault()
 
@@ -34,10 +34,14 @@ const PaymentForm = ({checkoutToken ,shippingData, backStep, nextStep}) => {
                payment: {
                    gateway:'stripe',
                    stripe: {
-                       payment_method_id:paymentMethod.id
+                       payment_method_id: paymentMethod?.id
                    }
                }
            }
+
+           onCaptureCheckout(checkoutToken.id,orderData)
+           nextStep()
+
        }
    }
 
@@ -52,7 +56,7 @@ const PaymentForm = ({checkoutToken ,shippingData, backStep, nextStep}) => {
                   <CardElement />
                   <br/><br/>
                   <div style={{display:'flex',justifyContent:'space-between'}} >
-                      <Button variant="outlined">Back</Button>
+                      <Button onClick={backStep} variant="outlined">Back</Button>
                       <Button type="submit" variant="contained" color="primary" disabled={!stripe}>Next</Button>
                   </div>
               </form>

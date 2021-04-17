@@ -1,14 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import { InputLabel, Select, MenuItem, Button, Grid, Typography} from '@material-ui/core'
 import { useForm, FormProvider } from 'react-hook-form'
-
+import {Link} from 'react-router-dom'
 import { commerce } from '../../lib/commerce'
 
 import FormInput from './Checkout/CustomTextField'
 
 
 
-const AddressForm = ({checkoutToken,next}) => {
+const AddressForm = ({checkoutToken,next,backStep}) => {
 const [shippingCountries,setShippingCountries ] =useState([])
 const [shippingCountry,setShippingCountry ] =useState('')
 const [ shippingRegions,setShippingRegions]= useState([])
@@ -106,8 +106,8 @@ const [ shippingOption,setShippingOption]= useState('')
                                 </Grid>  
                  </Grid>
                  <br/>
-                  <div style={{ display: 'flex',alignItems:'flex-end' }}>
-           
+                  <div style={{ display: 'flex',justifyContent:'space-between' }}>
+             <Button variant="outlined" component={Link} to="/cart">Back to cart</Button>
             <Button type="submit" variant="contained" color="primary">Next</Button>
             </div>
              </form>

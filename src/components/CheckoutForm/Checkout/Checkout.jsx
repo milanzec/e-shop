@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography, Divider,Button} from '@material-ui/core'
+import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography ,Button} from '@material-ui/core'
 import {Link} from 'react-router-dom' 
 
 import { commerce } from '../../../lib/commerce'
@@ -11,7 +11,7 @@ import { FiberPin } from '@material-ui/icons'
 
 
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Shipping address','Review your order','Payment details',];
 
 
 
@@ -58,11 +58,11 @@ const next = (data) => {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} />;
-    case 1:
-      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep}/>
+      return  checkoutToken && <AddressForm checkoutToken={checkoutToken} next={next} backStep={backStep} />;
     case 2:
-      return <Review checkoutToken={checkoutToken} />;
+      return <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} onCaptureCheckout={onCaptureCheckout}/>
+    case 1:
+      return <Review checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} />;
     default:
       throw new Error('Unknown step');
   }
@@ -95,11 +95,11 @@ return (
               <React.Fragment>
                 { getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep === 0 ? (
+                  {/*activeStep === 0 ? (
                     <Button variant="outlined" component={Link} to="/cart" className={classes.button}>
                       Back to cart
                     </Button>
-                  ):(<Button variant="outlined" onClick={backStep} className={classes.button}>Back</Button>)}
+                  ):(<Button variant="outlined" onClick={backStep} className={classes.button}>Back</Button>)*/}
                { /*  <Button
                     type="submit"
                     variant="contained"
