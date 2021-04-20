@@ -23,12 +23,15 @@ const [ shippingOption,setShippingOption]= useState('')
  const countries = Object.entries(shippingCountries).map(([code,name])=>({id:code,label:name}))
  const regions = Object.entries(shippingRegions).map(([code,name])=>({id:code,label:name}))
 
+
   
 
    const fetchShippingCountries = async (checkoutTokenId) => {
      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
      setShippingCountries(countries)
+     console.log(countries)
      setShippingCountry(Object.keys(countries)[0])
+     
     }
 
    const fetchShippingRegions = async(CountryId) =>{
