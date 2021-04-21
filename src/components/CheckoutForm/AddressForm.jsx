@@ -29,7 +29,6 @@ const [ shippingOption,setShippingOption]= useState('')
    const fetchShippingCountries = async (checkoutTokenId) => {
      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
      setShippingCountries(countries)
-     console.log(countries)
      setShippingCountry(Object.keys(countries)[0])
      
     }

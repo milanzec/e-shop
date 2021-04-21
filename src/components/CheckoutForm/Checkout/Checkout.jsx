@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography ,Divider, Button} from '@material-ui/core'
+import {Paper, Stepper, Step, StepLabel, CircularProgress, Typography ,Divider, Button,CssBaseline} from '@material-ui/core'
 import {Link} from 'react-router-dom' 
 
 import { commerce } from '../../../lib/commerce'
@@ -26,19 +26,35 @@ const[checkoutToken,setCheckoutToken] = useState(null)
 
 
 
-  const Confirmation = () => (
+ let Confirmation = () => order.customer? (
     <>
        <div>
          <Typography variant="h5">
-             Thank You for your order Name Lastname!
+             Thank You for your purchase {order?.customer.firstname} {order?.customer.lastname}!
          </Typography>
          <Divider className={classes.divider} />
-         <Typography variant="subtitle">hvala na kupovini</Typography>
+         <Typography variant="subtitle">Order reference: {order.customer_reference}</Typography>
        </div>
        <br/>
        <Button component={Link} to="/" variant="outlined" type="button">Back To Home</Button>
     </>
+) : (
+   
+  <div className={classes.spinner}>
+    <CircularProgress />
+  </div>
 )
+
+
+if(error) {
+  <>
+  <div>
+    <Typography variant="h5" >Error: {error}</Typography>
+    <br/>
+     <Button component={Link} to="/" variant="outlined" type="button">Back To Home</Button>
+  </div>
+  </>
+}
 
 
 
@@ -83,9 +99,9 @@ function getStepContent(step) {
 
 
 return (
-        < >
-    
-   <div className={classes.toolbar} />
+    < >
+     <CssBaseline/>
+     <div className={classes.toolbar} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
