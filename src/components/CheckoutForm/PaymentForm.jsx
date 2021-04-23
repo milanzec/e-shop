@@ -1,5 +1,5 @@
 import React from 'react'
-import {Typography,Button,Divider, Card} from '@material-ui/core'
+import {Typography,Button} from '@material-ui/core'
 import {Elements,CardElement,ElementsConsumer} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 
@@ -7,7 +7,7 @@ import {loadStripe} from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 
-const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout,refreshCart, backStep, nextStep}) => {
+const PaymentForm = ({checkoutToken ,shippingData, refreshCart,onCaptureCheckout, backStep, nextStep,timeout}) => {
    const handleSubmit = async (event,elements,stripe)=>{
         event.preventDefault()
 
@@ -39,9 +39,14 @@ const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout,refreshCart,
                }
            }
            
-           refreshCart()
+         
            onCaptureCheckout(checkoutToken.id,orderData)
+
+           timeout()
+
            nextStep()
+
+           refreshCart()
 
        }
    }
@@ -58,7 +63,7 @@ const PaymentForm = ({checkoutToken ,shippingData,onCaptureCheckout,refreshCart,
                   <br/><br/>
                   <div style={{display:'flex',justifyContent:'space-between'}} >
                       <Button onClick={backStep} variant="outlined">Back</Button>
-                      <Button type="submit" variant="contained" color="primary" disabled={!stripe}>Next</Button>
+                      <Button type="submit" variant="contained" color="primary" disabled={!stripe}> Pay {checkoutToken.live.subtotal.formatted_with_symbol}</Button>
                   </div>
               </form>
           )}

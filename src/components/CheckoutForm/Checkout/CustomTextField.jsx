@@ -11,7 +11,7 @@ const {control} = useFormContext();
             defaultValue=""          
             as={TextField}
             control = {control}
-            fullWidth
+            fullWidth="true"
             name={name}
             label={label}
             required={required}

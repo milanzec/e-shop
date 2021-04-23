@@ -22,7 +22,7 @@ const Review = ({checkoutToken, backStep,nextStep}) => {
     </List>
       <div style={{display:'flex',justifyContent:'space-between'}} >
                       <Button onClick={backStep} variant="outlined">Back</Button>
-                      <Button type="submit" variant="contained" color="primary" onClick={nextStep} >Next</Button>
+                      <Button onClick={nextStep} type="submit" variant="contained" color="primary" >Next</Button>
                   </div>
      </>
     )
